@@ -1,26 +1,26 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useCallback, useState } from "react";
+import styled from "styled-components";
+import Header from "./components/Header";
+import Aside from "./components/Aside";
+import Main from "./components/Main";
+
+const AppWrapper = styled.div`
+	display: grid;
+	grid-template-columns: 2fr 5fr;
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [selectedItem, setSelectedItem] = useState(null);
+	const getSelected = useCallback(selected => {
+		setSelectedItem(selected);
+	}, []);
+	return (
+		<AppWrapper>
+			<Header />
+			<Aside getSelected={getSelected} />
+			<Main selectedItem={selectedItem} />
+		</AppWrapper>
+	);
 }
 
 export default App;
